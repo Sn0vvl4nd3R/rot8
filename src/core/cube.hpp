@@ -112,8 +112,6 @@ public:
     }
   }
 
-  void Scramble(int num_moves);
-
   bool IsSolved(void) const {
     return (corner_perm == std::array<uint8_t, 8>{ 0, 1, 2, 3, 4, 5, 6, 7 } &&
             corner_ori  == std::array<uint8_t, 8>{ 0 } &&
@@ -121,6 +119,7 @@ public:
             edge_ori    == std::array<uint8_t, 12>{ 0 });
   }
 
+  void Scramble(int num_moves);
   void Print2D(void) const;
 };
 
