@@ -21,3 +21,33 @@ void Cube::Scramble(int num_moves) {
     prev_face = next_move / 3;
   }
 }
+
+uint16_t Cube::GetCornerOriIndex(void) const {
+  uint16_t idx = 0;
+
+  for (int i = 0; i < 7; ++i) {
+    idx = idx * 3 + corner_ori[i];
+  }
+
+  return idx;
+}
+
+uint32_t Cube::GetCornerPermIndex(void) const {
+  uint32_t idx = 0;
+
+  for (int i = 0; i < 7; ++i) {
+    uint32_t cnt = 0;
+
+    for (int j = i + 1; j < 8; ++j) {
+      if (corner_perm[j] < corner_perm[i]) ++cnt;
+    }
+
+    idx = idx * (8 - i) + cnt;
+  }
+
+  return idx;
+}
+
+uint32_t Cube::GetCornerIndex(void) const {
+  return GetCornerPermIndex() * 2187 + GetCornerOriIndex();
+}

@@ -1,10 +1,11 @@
 #include <iostream>
 
 #include "core/cube.hpp"
-#include "core/move.hpp"
+#include "solvers/korf.hpp"
 
 int main(void) {
   Cube cb;
+  Korf kf;
 
   std::cout << (cb.IsSolved()) << '\n';
   // cb.ApplyMove(Move::F);
@@ -20,7 +21,14 @@ int main(void) {
   //   std::cout << (cb.IsSolved()) << '\n';
   // }
   
-  cb.Scramble(5);
-  std::cout << (cb.IsSolved()) << '\n';
+  cb.Scramble(8);
+  std::vector<Move> sol = kf.Solve(cb);
+
+  for (Move m : sol) {
+    std::cout << MoveToString(m) << ' ';
+    cb.ApplyMove(m);
+  }
+  std::cout << '\n' << (cb.IsSolved()) << '\n';
+
   return 0;
 }

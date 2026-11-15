@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "../core/cube.cpp"
+#include "../core/cube.hpp"
 
 class Solver {
 public:
   virtual ~Solver(void) = default;
-  virtual std::vector<Move> solve(const Cube &initial_state) = 0;
+  virtual std::vector<Move> Solve(const Cube& initial_state) = 0;
 };
 
 #endif

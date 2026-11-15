@@ -120,6 +120,9 @@ public:
   }
 
   void Scramble(int num_moves);
+  uint16_t GetCornerOriIndex(void) const;
+  uint32_t GetCornerPermIndex(void) const;
+  uint32_t GetCornerIndex(void) const;
   void Print2D(void) const;
 };
 
