@@ -2,10 +2,12 @@
 
 #include "core/cube.hpp"
 #include "solvers/korf.hpp"
+#include "solvers/kociemba.hpp"
 
 int main(void) {
   Cube cb;
-  Korf kf;
+  cb.FromStickers("BRGWWGWGGYYRGYYBBROOOOOOOOOWRYBRRBGBGWRYGRGBWRYYWBBYWW");
+  Kociemba ko;
 
   std::cout << (cb.IsSolved()) << '\n';
   // cb.ApplyMove(Move::F);
@@ -21,14 +23,16 @@ int main(void) {
   //   std::cout << (cb.IsSolved()) << '\n';
   // }
   
-  cb.Scramble(8);
-  std::vector<Move> sol = kf.Solve(cb);
+  // cb.Scramble(8);
+  cb.Print2D();
+  std::vector<Move> sol = ko.Solve(cb);
 
   for (Move m : sol) {
     std::cout << MoveToString(m) << ' ';
     cb.ApplyMove(m);
   }
   std::cout << '\n' << (cb.IsSolved()) << '\n';
+  cb.Print2D();
 
   return 0;
 }

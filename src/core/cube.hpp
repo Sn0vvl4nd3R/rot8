@@ -2,6 +2,7 @@
 #define CUBE_HPP
 
 #include <array>
+#include <string>
 #include <cstdint>
 
 #include "move.hpp"
@@ -123,6 +124,10 @@ public:
   uint16_t GetCornerOriIndex(void) const;
   uint32_t GetCornerPermIndex(void) const;
   uint32_t GetCornerIndex(void) const;
+  uint16_t GetEdgeOriIndex(void) const;
+  uint32_t GetEdgePermIndex(void) const;
+  uint32_t GetSliceIndex(void) const;
+  bool FromStickers(const std::string& s);
   void Print2D(void) const;
 };
 

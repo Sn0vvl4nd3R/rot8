@@ -81,7 +81,7 @@ bool Korf::Search(const Cube& cube, int depth, int max_depth, uint8_t prev_face,
 
     next_cube.ApplyMove(mv);
     path.push_back(mv);
-    if (Search(next_cube, depth + 1, max_depth, m / 3, path)) {
+    if (Search(next_cube, depth + 1, max_depth, face, path)) {
       return true;
     }
     path.pop_back();
