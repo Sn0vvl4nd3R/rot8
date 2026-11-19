@@ -1,4 +1,5 @@
 #include <iostream>
+#include <raylib.h>
 
 #include "core/cube.hpp"
 #include "solvers/korf.hpp"
@@ -36,7 +37,10 @@ int main(void) {
   // cb.Print2D();
 
   Renderer rndr(800, 800, "Hello, World");
-  rndr.Draw(cb);
+  while (!rndr.ShouldClose()) {
+    rndr.Draw(cb);
+    rndr.Update(cb, ko);
+  }
 
   return 0;
 }

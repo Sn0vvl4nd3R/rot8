@@ -20,22 +20,19 @@ bool Renderer::ShouldClose(void) const {
   return WindowShouldClose();
 }
 
+void Renderer::Update(Cube& cube, Solver& solver) {
+  UpdateCamera(&camera, CAMERA_ORBITAL);
+}
+
 void Renderer::Draw(const Cube& cube) {
-  while (!WindowShouldClose()) {
-    IsKeyPressed(KEY_SPACE);
-    UpdateCamera(&camera, CAMERA_ORBITAL);
-
-    BeginDrawing();
-    ClearBackground(DARKGRAY);
-    BeginMode3D(camera);
+  BeginDrawing();
+  ClearBackground(DARKGRAY);
+  BeginMode3D(camera);
     
-    DrawCube({0, 0, 0}, 2, 2, 2, RED);
-    // DrawCubeWires({0, 0, 0}, 2, 2, 2, BLACK);
-    DrawGrid(10, 1.0f);
+  DrawCube({0, 0, 0}, 3, 3, 3, BLACK);
+  DrawCubeWires({0, 0, 0}, 3, 3, 3, WHITE);
+  DrawGrid(10, 1.0f);
 
-    EndMode3D();
-    EndDrawing();
-  }
-
-  CloseWindow();
+  EndMode3D();
+  EndDrawing();
 }

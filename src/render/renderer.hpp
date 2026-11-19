@@ -6,6 +6,7 @@
 
 #include "../core/cube.hpp"
 #include "../core/move.hpp"
+#include "../solvers/solver.hpp"
 
 class Renderer {
 private:
@@ -20,7 +21,7 @@ public:
   ~Renderer(void);
 
   bool ShouldClose(void) const;
-  // void Update(Cube& cube, ...);
+  void Update(Cube& cube, Solver& solver); 
   void Draw(const Cube& cube);
 };
 
