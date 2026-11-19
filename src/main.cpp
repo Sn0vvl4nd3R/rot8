@@ -2,6 +2,7 @@
 
 #include "core/cube.hpp"
 #include "solvers/korf.hpp"
+#include "render/renderer.hpp"
 #include "solvers/kociemba.hpp"
 
 int main(void) {
@@ -24,15 +25,18 @@ int main(void) {
   // }
   
   // cb.Scramble(8);
-  cb.Print2D();
-  std::vector<Move> sol = ko.Solve(cb);
+  // cb.Print2D();
+  // std::vector<Move> sol = ko.Solve(cb);
 
-  for (Move m : sol) {
-    std::cout << MoveToString(m) << ' ';
-    cb.ApplyMove(m);
-  }
-  std::cout << '\n' << (cb.IsSolved()) << '\n';
-  cb.Print2D();
+  // for (Move m : sol) {
+  //   std::cout << MoveToString(m) << ' ';
+  //   cb.ApplyMove(m);
+  // }
+  // std::cout << '\n' << (cb.IsSolved()) << '\n';
+  // cb.Print2D();
+
+  Renderer rndr(800, 800, "Hello, World");
+  rndr.Draw(cb);
 
   return 0;
 }

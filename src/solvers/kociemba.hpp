@@ -6,7 +6,7 @@
 #include "solver.hpp"
 #include "../core/move.hpp"
 
-class Kociemba : Solver {
+class Kociemba : public Solver {
 private:
   std::array<uint8_t, 2187> corner_table;
   std::array<uint8_t, 4096> edge_table;
