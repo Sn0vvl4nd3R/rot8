@@ -1,5 +1,15 @@
 #include "renderer.hpp"
+#include "rcamera.h"
 #include <raylib.h>
+
+Color Palette[] = {
+  WHITE,
+  YELLOW,
+  ORANGE,
+  RED,
+  GREEN,
+  BLUE
+};
 
 Renderer::Renderer(int width, int height, const char* title) {
   InitWindow(width, height, title);
@@ -21,10 +31,21 @@ bool Renderer::ShouldClose(void) const {
 }
 
 void Renderer::Update(Cube& cube, Solver& solver) {
-  UpdateCamera(&camera, CAMERA_ORBITAL);
+  constexpr float sensitivity = 0.005f;
+
+  if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+    const Vector2 delta = GetMouseDelta();
+
+    CameraYaw(&camera, -delta.x * sensitivity, true);
+    CameraPitch(&camera, -delta.y * sensitivity, true, true, false);
+  } else {
+    UpdateCamera(&camera, CAMERA_ORBITAL);
+  }
 }
 
 void Renderer::Draw(const Cube& cube) {
+  std::array<uint8_t, 54> stickers = cube.ToStickers();
+
   BeginDrawing();
   ClearBackground(DARKGRAY);
   BeginMode3D(camera);
@@ -41,22 +62,22 @@ void Renderer::Draw(const Cube& cube) {
       float y = 1.0f - row;
 
       // FaceF (Front)
-      DrawCube({ x, y, offset }, size, size, thickness, RED);
+      DrawCube({ x, y, offset }, size, size, thickness, Palette[stickers[4 * 9 + row * 3 + col]]);
 
       // FaceB (Back)
-      DrawCube({ -x, y, -offset }, size, size, thickness, ORANGE);
+      DrawCube({ -x, y, -offset }, size, size, thickness, Palette[stickers[5 * 9 + row * 3 + col]]);
 
       // FaceR (Right)
-      DrawCube({ offset, y, -x }, thickness, size, size, BLUE);
+      DrawCube({ offset, y, -x }, thickness, size, size, Palette[stickers[3 * 9 + row * 3 + col]]);
 
       // FaceL (Left)
-      DrawCube({ -offset, y, x }, thickness, size, size, GREEN);
+      DrawCube({ -offset, y, x }, thickness, size, size, Palette[stickers[2 * 9 + row * 3 + col]]);
 
       // FaceU (Up)
-      DrawCube({ x, offset, -y }, size, thickness, size, WHITE);
+      DrawCube({ x, offset, -y }, size, thickness, size, Palette[stickers[0 * 9 + row * 3 + col]]);
 
       // FaceD (Down)
-      DrawCube({ x, -offset, y }, size, thickness, size, YELLOW);
+      DrawCube({ x, -offset, y }, size, thickness, size, Palette[stickers[1 * 9 + row * 3 + col]]);
     }
   }
 

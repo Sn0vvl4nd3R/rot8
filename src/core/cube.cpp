@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <random>
 #include <string>
 #include <iostream>
@@ -203,7 +204,31 @@ bool Cube::FromStickers(const std::string& s) {
 }
 
 std::array<uint8_t, 54> Cube::ToStickers(void) const {
-  std::array<uint8_t, 54> stickers;
+  std::array<uint8_t, 54> stickers = {0};
+
+  for (uint8_t f = 0; f < 6; ++f) {
+    stickers[f * 9 + 4] = f;
+  }
+
+  for (int i = 0; i < 12; ++i) {
+    int edge_idx = edge_perm[i];
+    int ori = edge_ori[i];
+
+    uint8_t color0 = kEdgeColors[edge_idx][ori];
+    uint8_t color1 = kEdgeColors[edge_idx][1 - ori];
+
+    stickers[kEdgeFacelets[i][0]] = color0;
+    stickers[kEdgeFacelets[i][1]] = color1;
+  }
+
+  for (int i = 0; i < 8; ++i) {
+    int corner_idx = corner_perm[i];
+    int ori = corner_ori[i];
+
+    stickers[kCornerFacelets[i][0]] = kCornerColors[corner_idx][(0 + 3 - ori) % 3];
+    stickers[kCornerFacelets[i][1]] = kCornerColors[corner_idx][(1 + 3 - ori) % 3];
+    stickers[kCornerFacelets[i][2]] = kCornerColors[corner_idx][(2 + 3 - ori) % 3];
+  }
 
   return stickers;
 }
