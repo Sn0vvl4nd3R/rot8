@@ -202,6 +202,12 @@ bool Cube::FromStickers(const std::string& s) {
   return true;
 }
 
+std::array<uint8_t, 54> Cube::ToStickers(void) const {
+  std::array<uint8_t, 54> stickers;
+
+  return stickers;
+}
+
 void Cube::Print2D(void) const {
   std::array<uint8_t, 54> stickers;
 

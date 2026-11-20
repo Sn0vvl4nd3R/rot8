@@ -36,7 +36,7 @@ int main(void) {
   // std::cout << '\n' << (cb.IsSolved()) << '\n';
   // cb.Print2D();
 
-  Renderer rndr(800, 800, "Hello, World");
+  Renderer rndr(400, 400, "Hello, World");
   while (!rndr.ShouldClose()) {
     rndr.Draw(cb);
     rndr.Update(cb, ko);

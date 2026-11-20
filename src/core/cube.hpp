@@ -128,6 +128,7 @@ public:
   uint32_t GetEdgePermIndex(void) const;
   uint32_t GetSliceIndex(void) const;
   bool FromStickers(const std::string& s);
+  std::array<uint8_t, 54> ToStickers(void) const;
   void Print2D(void) const;
 };
 
