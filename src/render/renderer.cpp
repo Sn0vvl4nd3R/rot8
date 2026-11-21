@@ -1,5 +1,7 @@
 #include "renderer.hpp"
 #include "rcamera.h"
+#include "../core/move.hpp"
+#include "../solvers/solver.hpp"
 #include <raylib.h>
 
 Color Palette[] = {
@@ -31,6 +33,16 @@ bool Renderer::ShouldClose(void) const {
 }
 
 void Renderer::Update(Cube& cube, Solver& solver) {
+  if (IsKeyPressed(KEY_U)) cube.ApplyMove(Move::U);
+  if (IsKeyPressed(KEY_D)) cube.ApplyMove(Move::D);
+  if (IsKeyPressed(KEY_L)) cube.ApplyMove(Move::L);
+  if (IsKeyPressed(KEY_R)) cube.ApplyMove(Move::R);
+  if (IsKeyPressed(KEY_F)) cube.ApplyMove(Move::F);
+  if (IsKeyPressed(KEY_B)) cube.ApplyMove(Move::B);
+
+  if (IsKeyPressed(KEY_X)) cube.Scramble(10);
+  if (IsKeyPressed(KEY_S)) solution = solver.Solve(cube);
+
   constexpr float sensitivity = 0.005f;
 
   if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
@@ -43,7 +55,7 @@ void Renderer::Update(Cube& cube, Solver& solver) {
   }
 }
 
-void Renderer::Draw(const Cube& cube) {
+void Renderer::Draw(const Cube& cube, Solver& solver) {
   std::array<uint8_t, 54> stickers = cube.ToStickers();
 
   BeginDrawing();
@@ -81,8 +93,20 @@ void Renderer::Draw(const Cube& cube) {
     }
   }
 
+  EndMode3D();
+
+  int start_x = 50;
+  int start_y = 50;
+  int spacing = 30;
+
+  DrawText("Moves:", start_x, start_y - 30, 20, DARKGRAY);
+
+  for (std::size_t i = 0; i < solution.size(); ++i) {
+    int pos_y = start_y + (i * spacing);
+    DrawText(MoveToString(solution[i]), start_x, pos_y, 20, GRAY);
+  }
+
   DrawCubeWires({0, 0, 0}, 3, 3, 3, WHITE);
 
-  EndMode3D();
   EndDrawing();
 }

@@ -1,5 +1,4 @@
 #include <iostream>
-#include <raylib.h>
 
 #include "core/cube.hpp"
 #include "solvers/korf.hpp"
@@ -8,7 +7,7 @@
 
 int main(void) {
   Cube cb;
-  cb.FromStickers("BRGWWGWGGYYRGYYBBROOOOOOOOOWRYBRRBGBGWRYGRGBWRYYWBBYWW");
+  // cb.FromStickers("BRGWWGWGGYYRGYYBBROOOOOOOOOWRYBRRBGBGWRYGRGBWRYYWBBYWW");
   Kociemba ko;
 
   std::cout << (cb.IsSolved()) << '\n';
@@ -36,9 +35,9 @@ int main(void) {
   // std::cout << '\n' << (cb.IsSolved()) << '\n';
   // cb.Print2D();
 
-  Renderer rndr(400, 400, "Hello, World");
+  Renderer rndr(800, 800, "Hello, World");
   while (!rndr.ShouldClose()) {
-    rndr.Draw(cb);
+    rndr.Draw(cb, ko);
     rndr.Update(cb, ko);
   }
 
